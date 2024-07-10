@@ -79,3 +79,8 @@ Future research could explore the performance of these algorithms in other multi
    ```sh
    git clone git@github.com:VotreNomUtilisateur/TronGame.git
    cd TronGame
+
+### Compile
+   ```sh
+   ant compile
+   ant run
