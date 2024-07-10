@@ -39,7 +39,8 @@ Dans ce projet, nous avons utilisé la théorie des jeux et l'intelligence artif
 ### Description du jeu
 Le jeu de Tron se joue sur une grille de taille N x M. Chaque joueur contrôle un point qui se déplace sur la grille et laisse derrière lui un mur infranchissable. Le but est d'être le dernier joueur en évitant les collisions.
 
-![Jeu de Tron](rapport/Tmages/jeu-tron.png)
+https://github.com/Amirath6/TronGame/blob/main/rapport/Images/jeu-tron.png?raw=true![image](https://github.com/Amirath6/TronGame/assets/118858729/9f18a8b1-da43-4130-9ed0-05eb9b4df86b)
+
 
 ### Analyse mathématique du jeu
 Le jeu se joue sur une grille où chaque cellule peut être vide ou occupée par un joueur. Chaque joueur a trois choix de mouvement : continuer tout droit, tourner à gauche ou tourner à droite. Le jeu se termine soit par la victoire d'un joueur, soit par une égalité si tous les joueurs sont éliminés.
