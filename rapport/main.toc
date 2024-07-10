@@ -1,0 +1,27 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{Introduction}{1}{section*.1}%
+\contentsline {section}{\numberline {1}Jeu de Tron}{2}{section.1}%
+\contentsline {section}{\numberline {2}Problématique et hypothèses de recherche}{3}{section.2}%
+\contentsline {section}{\numberline {3}Etat de l'art : théorie des jeux et Recherche adversarial}{4}{section.3}%
+\contentsline {section}{\numberline {4}Organisation et planification}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Etapes du projet}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Gestion du projet}{5}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Planification du travail}{6}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Analyse et Démonstration des algorithmes}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}OpenSpace}{7}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}GASLAP}{7}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Voronoï}{8}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Checker}{11}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Architecture du projet}{13}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Modules et Classes}{13}{subsection.6.1}%
+\contentsline {subsubsection}{\numberline {6.1.1}Modèle}{13}{subsubsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.2}Vue}{15}{subsubsection.6.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.3}Algorithmes}{17}{subsubsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.2}Les fonctionnalités}{17}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Expérimentations et Évaluation}{18}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Cas d'utilisation testés}{18}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Méthodologie}{18}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Résultats des expérimentations et analyse}{19}{subsection.7.3}%
+\contentsline {section}{Conclusion et perspectives}{20}{figure.12}%
+\contentsline {section}{Annexes}{21}{section*.3}%
+\contentsline {section}{Bibliographie}{21}{section*.7}%

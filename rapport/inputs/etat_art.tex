@@ -1,0 +1,41 @@
+Le jeu Tron appartient à un genre prisé de jeux d'arcade basés sur la navigation d'un protagoniste à travers une grille labyrinthique. 
+Depuis leur apparition, ces jeux ont évolué, intégrant désormais des fonctionnalités multijoueurs et des mécaniques de jeu plus élaborées. 
+L'application de l'intelligence artificielle (IA) et de la théorie des jeux dans l'analyse de ces jeux a suscité un intérêt croissant, 
+poussant les chercheurs à développer divers algorithmes et stratégies pour optimiser les performances des joueurs. Dans ce qui suit,
+nous présentons les algorithmes et stratégies prédominants dans le jeu de Tron, passons en revue la littérature existante concernant l'application de l'IA 
+et de la théorie des jeux, mettons en évidence les avantages et les limites des différentes approches et identifiant les lacunes dans l'état actuel 
+de la recherche.
+
+\tocless\subsection{Théorie des jeux}
+La théorie des jeux a été appliquée au jeu de Tron pour analyser la prise de décision stratégique de plusieurs joueurs 
+et développer des stratégies de jeu optimales. Les recherches précédentes se sont concentrées sur l'utilisation de différents 
+concepts de la théorie des jeux, tel que les équilibres de Nash et les stratégies mixtes, pour modéliser le comportement des 
+joueurs et prédire leurs mouvements. Certaines études ont également exploré l'utilisation 
+d'heuristique pour guider les joueurs vers des stratégies optimales dans divers scénarios.\\
+
+
+En gandre partie, les études se sont concentrées sur l'examen de l'algorithme de recherche arborescente de $Monte$ $Carlo$ (MCTS). 
+Des travaux tels que ceux de \textbf{Perick} \textbf{et al.} \cite{perick2012comparison} ont comparé différentes méthodes de sélection 
+pour optimiser les performances de l'algorithme. Il en découle que l'adoption d'une stratégie de sélection spécifique peut améliorer les résultats de l'algorithme. 
+De plus, d'autres recherches, comme celle de \textbf{Den} \textbf{et al.} \cite{den2011monte} ont exploré diverses heuristiques pour accroître l'efficacité de
+ces algorithmes. Ainsi, l'emploi d'une heuristique fondée sur l'estimation de l'espace libre constitue un bon indicateur de la qualité d'une action.\\
+
+De plus, des travaux connexes ont été menées  en utilisant des algorithmes de recherche adversarial($minimax$, $alpha$-$beta$, $negamax$...). 
+C'est le cas des travaux de \textbf{Boin}\cite{boincs221} dans lequel il présente divers versions de l'algorithme $minimax$ et des 
+heuristiques pour améliorer les performances de l'algorithme. Un autre article facinant est celui réalisé par le vainqueur de 
+\textbf{Google IA Challenge} \cite{sloane_2010} qui a utilisé un algorithme de recherche adversarial pour sortir victorieux de ce Challenge.
+Il y montre et explique les différentes étapes de son travail, notamment celui sur l'implémentation des heuristiques qui apporte une 
+amélioration significative des performances de l'algorithme.\\
+
+
+\tocless\subsection{Recherche adversarial multijoueur}
+La recherche adversarial est une technique fréquemment employée pour modéliser le comportement des participants dans les 
+environnements multi-agents. Cela englobe l'analyse des algorithmes et des stratégies pour des scénarios 
+impliquant plus de deux acteurs. Deux approches principales existent pour aborder ce défi, notamment l'application des algorithmes suivants : 
+\begin{itemize}
+	\item \textbf{Max}$^n$
+	\item \textbf{Paranoid}
+\end{itemize}
+Ces algorithmes ont fait leur preuve dans le domaine des jeux multijoueurs
+et ont été largement utilisés pour analyser les stratégies de jeu optimales. En effet la recherche réalisé par \cite{nathan} ont montré que l'algorithme paranoïaque 
+est une option viable pour les jeux multijoueurs, puisqu'il surpasse systématiquement l'algorithme maxn au jeu de dames et obtient des résultats légèrement meilleurs au jeu de cœur. Cependant, l'algorithme maxn reste compétitif dans les jeux où il peut élaguer. Dans l'ensemble, nous concluons que l'algorithme paranoïaque est supérieur dans les jeux où l'algorithme maxn est contraint d'effectuer une recherche par force brute

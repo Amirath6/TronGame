@@ -1,0 +1,54 @@
+\documentclass{beamer}
+
+%\usetheme{AnnArbor}
+\usetheme{Warsaw}
+\usecolortheme{seahorse}
+\usecolortheme{rose}
+\usefonttheme[onlylarge]{structuresmallcapsserif}
+\usefonttheme[onlysmall]{structurebold}
+\setbeamerfont{title}{shape=\itshape,family=\rmfamily}
+%\setbeamercolor{title}{fg=red!80!black}
+
+\usepackage{caption}
+\usepackage{subcaption}
+%\usecolortheme{wolverine}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{tikz}
+\usepackage{animate}
+%\usepackage{graphicx}
+\usepackage{blkarray}
+\usepackage{graphicx}
+
+\title{TRON GAME}
+\author[A. Catherine ATTY \\  Sékou DOUMBOUYA \\ Manne Emile KITSOUKOU \\ Amirath Fara OROU-GUIDOU]{A. Catherine ATTY \\  Sékou DOUMBOUYA \\ Manne Emile KITSOUKOU \\ Amirath Fara OROU-GUIDOU}
+\institute[Université de Caen Normandie]{Université de Caen Normandie}
+\date{\today}
+\logo{\includegraphics[width=0.2\textwidth]{Images/universite-de-caen-normandie-1-350x0-c-default.png}}
+
+\setbeamertemplate{footline}[frame number]
+
+\begin{document}
+    % page de garde
+    \begin{frame}
+        \titlepage
+    \end{frame}
+    
+    \section*{Introduction}
+    \input{inputs/Introduction.tex}
+
+    \section{Conception du jeu de TRON}
+    \input{inputs/Conception.tex}
+
+    \section{Heuristiques et Analyse}
+    \input{inputs/Heuristiques.tex}
+
+    \section{Étude des performances}
+    \input{inputs/Performance.tex}
+
+    \section{Conclusion}
+    \input{inputs/Conclusion.tex}
+
+\end{document}
+ï

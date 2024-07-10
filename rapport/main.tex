@@ -1,0 +1,195 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\geometry{hmargin=2.5cm,vmargin=1.5cm}
+\usepackage[utf8]{inputenc}%encodage des caractères    
+                         
+\usepackage[T1]{fontenc}%encodage de la police    
+                              
+\usepackage[french]{babel}%langue française
+\usepackage{float}
+
+
+
+\frenchbsetup{StandardLists=true} % à inclure si on utilise \usepackage[french]{babel}
+
+\usepackage{enumitem}
+
+\usepackage[linesnumbered,ruled,french,onelanguage]{algorithm2e}
+\usepackage{listings}
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{pblue},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{$$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+	
+\usepackage{color}
+
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+% Pour l'inclusion des diagrammes UML                                           
+\usepackage{graphicx}
+\newcommand{\umlscale}{0.4}
+
+% Écriture des noms de classes, etc.                                            
+\newcommand{\packagename}[1]{\texttt{#1}}
+\newcommand{\classname}[1]{\texttt{#1}}
+\newcommand{\methodname}[1]{\texttt{#1}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+% display heading, like subsubsection
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+ \setcounter{secnumdepth}{4}
+\makeatother
+
+\SetAlFnt{\small\sffamily}
+
+
+% Inclure des sections ou sous-sections dans le sommaire
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+%%%% un bug dans la version française de algorithm2e : pas de traduction de output sans les lignes ci-dessous
+\makeatletter 
+\g@addto@macro{\@algocf@init}{\SetKwInput{KwOut}{Sortie}} 
+\makeatother
+%%%%%
+
+
+
+\begin{document}
+\thispagestyle{empty}
+%Page de garde
+\begin{titlepage}
+	%haut de la page
+	\begin{center}
+		\includegraphics[scale=0.2]{Images/logos-Marianne-UNICAEN-scaled.jpg}\\[1.5cm]
+
+		%type de document : rapport
+		\textsc{\Large Rapport de Projet}\\[1.5cm]
+
+		%Nom du projet
+		\HRule \\[0.4cm]
+		{
+		\Large \bfseries Étude des performances des algorithmes Max$^n$ et paranoid 
+		pour la prise de décision dans le jeu de Tron Multijoueur
+		 \\[0.2cm]
+		}
+		\HRule \\[0.5cm]
+	\end{center}
+
+	%Equipe Developpement
+	\begin{minipage}[c]{0.5\linewidth}
+		%Membres du groupes
+		\begin{flushleft}
+			\underline{Equipe de développement}: \\[0.5cm]
+			A. Catherine ATTY\\[0.2cm]
+			Sékou DOUMBOUYA\\[0.2cm]
+			Manne Emile KITSOUKOU\\[0.2cm]
+			Amirath Fara OROU-GUIDOU\\[0.5cm]
+			%OROU-GUIDOU Amirath Fara\\[0.5cm]
+			%Info sur la formation
+			\underline{Parcours} : Licence 3 Informatique\\[0.2cm]
+			\underline{Groupe} : 2B\\
+		\end{flushleft}
+	\end{minipage}
+
+	%Superviseurs
+	\begin{minipage}[c]{\linewidth}
+		\begin{flushright}
+			\underline{Sous la supervison} :\\[0.5cm]
+			LEHEMBRE Etienne\\[0.2cm]
+		\end{flushright}
+	\end{minipage}\\[0.7cm]
+
+	%bas de la page de garde
+	%\center Avril 2022
+	\center \today
+\end{titlepage}
+\thispagestyle{empty}
+%page de sommaire
+\tableofcontents
+\newpage
+
+%L'ecriture du document commence ici
+
+\setcounter{page}{1}
+\addcontentsline{toc}{section}{Introduction}
+\section*{Introduction}
+\label{sec:intro}
+\input{inputs/intro.tex}
+
+\newpage
+\section[Jeu de Tron]{Jeu de Tron : Un jeu multijoueur captivant}
+\label{sec:jeu_tron}
+\input{inputs/jeu_tron.tex}
+
+\section{Problématique et hypothèses de recherche}
+\label{sec:problematique}
+\input{inputs/problematique.tex}
+
+\section{Etat de l'art : théorie des jeux et Recherche adversarial}
+\label{sec:etat_art}
+\input{inputs/etat_art.tex}
+
+
+\section{Organisation et planification}
+\label{sec:organisation}
+\input{inputs/organisation.tex}
+
+\section[Analyse et Démonstration des algorithmes]{Analyse et Démonstration des algorithmes : Les heuristiques}
+\label{sec:analyse}
+\input{inputs/algorithm.tex}
+
+\section{Architecture du projet}
+\label{sec:architecture}
+\input{inputs/architecture.tex}
+
+\section{Expérimentations et Évaluation}
+\input{inputs/experimentations.tex}
+\addcontentsline{toc}{section}{Conclusion et perspectives}
+\section*{Conclusion et perspectives}
+En conclusion, notre projet a exploré l'utilisation des algorithmes Maxn et paranoïaque dans le contexte d'un jeu multijoueur, et a montré que le choix de l'algorithme peut avoir un impact significatif sur la performance du joueur. Nos expériences ont démontré que l'algorithme paranoïaque est un concurrent de taille pour les jeux multijoueurs, surpassant l'algorithme Maxn dans certains cas.
+
+Pour ce qui est de l'avenir, il existe plusieurs directions intéressantes dans lesquelles ce projet pourrait être étendu. L'une d'entre elles consisterait à étudier les performances des algorithmes Maxn et paranoïaque dans d'autres jeux multijoueurs que ceux que nous avons testés, tels que Tron. En particulier, le jeu Tron est un bon candidat pour une exploration plus approfondie car il présente un type de défi différent en ce qui concerne la stratégie et le mouvement, et nécessite donc des approches différentes de la conception et de l'optimisation des algorithmes.
+
+Dans l'ensemble, notre projet a contribué à une meilleure compréhension des défis et des opportunités présentés par les jeux multijoueurs, et a démontré le potentiel des techniques algorithmiques avancées pour améliorer les performances des joueurs. Nous pensons que ce travail intéressera aussi bien les chercheurs que les développeurs de jeux, et nous sommes impatients de voir l'impact qu'il aura sur le domaine dans les années à venir.
+
+\newpage
+\addcontentsline{toc}{section}{Annexes}
+\section*{Annexes}
+\renewcommand{\thesection}{\Alph{section}}
+\setcounter{section}{0}
+
+% Analyse des heuristiques
+
+
+
+
+\thispagestyle{empty}
+%page des figures
+\listoffigures
+
+%page des tableaux
+\listoftables
+
+%page des algorithmes
+\listofalgorithms
+
+\addcontentsline{toc}{section}{Bibliographie}
+\section*{Bibliographie}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bibliography.bib}
+\end{document}

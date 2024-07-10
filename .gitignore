@@ -1,0 +1,15 @@
+#Default ignore file for git
+bin/
+build/
+out/
+.idea/
+.gradle/
+local.properties
+.DS_Store
+.gradle
+local.properties
+tron-game-multijoueur-skd_mek_aacg_ogaf.iml
+.vscode/
+
+/build/*
+*.class

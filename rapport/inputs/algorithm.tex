@@ -1,0 +1,237 @@
+Dans le cadre de ce projet, différentes techniques heuristiques ont été utilisées pour améliorer l'algorithme de prise de décision. 
+Nous avons pris la décision de nous concentrer exclusivement sur les heuristiques basées sur l'occupation de l'espace. Ces heuristiques sont particulièrement 
+adaptées pour faciliter l'analyse des positions de jeu et l'évaluation de leur qualité. 
+
+\subsection{OpenSpace}
+L'heuristique \textbf{OpenSpace} est une technique simple basée sur la comptabilisation du nombre de cases vides entourant 
+un joueur donné. Elle se fonde uniquement sur la position de ce joueur et ne prend pas en considération la position des 
+autres joueurs.
+
+\tocless\subsubsection{Implémentation}
+Son implémentation consiste à calculer le nombre de cases vides situées autour d'un joueur donné, à partir d'un état de jeu spécifique.\\
+
+\begin{algorithm}[H]
+	\caption{OpenSpace}
+	\label{alg:openspace}
+	\DontPrintSemicolon
+	\KwIn{$state$ : état du jeu}
+	\KwOut{$scores$ : score de l'état}
+	$scores \gets \{\}$\;
+	\For{$player \in state.players$}{
+		$score \gets 0$\;
+		\For{$neighbor \in state.neighbors(player)$}{
+			\If{$neighbor \in state.empty$}{
+				$score \gets score + 1$\;
+			}
+		}
+		$scores[player] \gets score$\;
+	}
+	\Return $scores$\;
+\end{algorithm}
+
+\tocless\subsubsection{Complexité}
+L'algorithme \textbf{OpenSpace}~\ref{alg:openspace} a une complexité temporelle qui dépend uniquement du nombre de joueurs dans le jeu.\\
+
+En effet la boucle extérieure de l'algorithme parcourt tous les joueurs présents dans l'état de jeu, ce qui prend un temps 
+proportionnel à N, où N est le nombre de joueurs. De plus la boucle intérieure itère sur les quatres(4) voisins de chaque joueur, et 
+la vérification de la liberté de chaque voisin(voir la ligne 5~\ref{alg:openspace}) se fait en temps constant($\mathcal{O}(1)$).\\
+
+Par conséquent, la complexité de l'algorithme \textbf{Openspace} est de l'ordre de $\mathcal{O}(N)$, 
+ce qui peut être considéré comme linéaire en fonction du nombre de joueurs.\\
+
+\subsection{GASLAP}
+\textbf{GASLAP} abréviation de "\textbf{G}o \textbf{AS} \textbf{L}ong \textbf{A}s \textbf{P}ossible" est une approche 
+qui consiste à calculer la distance maximale qu'un joueur peut parcourir à partir de sa position de départ dans une 
+direction donnée, sans rencontrer d'obstacles. Cette méthode permet de prioriser les mouvements qui permettent au 
+joueur de se déplacer le plus loin possible dans la direction choisie, tout en évitant les déplacements inutiles 
+et en maximisant l'efficacité des mouvements.
+
+\tocless\subsubsection{Implémentation}
+Cette approche s'appuie sur la détermination du nombre de cases vides situées dans la direction choisie par le joueur.\\
+
+\begin{algorithm}[H]
+	\caption{GASLAP}
+	\label{alg:gaslap}
+	\DontPrintSemicolon
+	\KwIn{$state$ : état du jeu}
+	\KwOut{$scores$ : score de l'état}
+	$scores \gets \{\}$\;
+	\For{$player \in state.players$}{
+		$score \gets 0$\;
+		$direction \gets state.direction(player)$\;
+		$position \gets player.position$\;
+		\While{$position \in state.empty$}{
+			$position \gets position + direction$\;
+			$score \gets score + 1$\;
+		}
+		$scores[player] \gets score$\;
+	}
+	\Return $scores$\;
+\end{algorithm}
+
+\tocless\subsubsection{Complexité}
+Étant donné que le jeu se déroule sur une grille carrée de taille fixe $n \times n$,un joueur ne peut se déplacer dans une même direction que
+$n-1$ fois. Ainsi, la complexité de la boucle intérieure(boucle \textbf{While}) est de l'ordre de $\mathcal{O}(n)$. De plus la boucle extérieure
+(boucle \textbf{For}) parcourt tous les joueurs présents dans l'état de jeu, ce qui prend un temps proportionnel à $J$, où $J$ est le nombre de joueurs.\\
+
+Par conséquent, la complexité de l'algorithme \textbf{GASLAP} est de l'ordre de $\mathcal{O}(J \times n)$, ce qui peut être considéré comme
+linéaire en fonction du nombre de joueurs car $n$ est une constante.\\
+
+\subsection{Voronoï}
+Le diagramme de \textbf{Voronoï} est une technique mathématique qui permet de diviser l'espace en régions distinctes en 
+fonction de la proximité de points spécifiques. Dans le cadre de ce projet, nous avons utilisé cette technique pour 
+déterminer les zones d'influence\footnote{Zone d'influence est la zone pour laquelle un joueur peut atteindre en premier à partir de sa position de départ.} 
+des joueurs.
+\tocless\subsubsection{Implémentation}
+Pour mettre en œuvre cette technique, nous commençons par calculer la distance entre le joueur et toutes les autres 
+cases vides\footnote{Case vide est une case qui n'est pas occupée par un joueur.} de la grille. Pour ce faire, nous adaptons 
+les principes de l'algorithme de \textbf{Dijkstra} à notre cas spécifique(voir algorithme \ref{algo:distance}).\\
+
+\begin{algorithm}[H]
+	\caption{Détermination de la distance entre le joueur et les cases vides}
+	\label{algo:distance}
+	\DontPrintSemicolon
+	\SetKwComment{Comment}{/* }{ */}
+	\KwIn{$initial\_position$ : Position initial du joueur, $positions\_vides$ : Ensemble des positions des cases vides}
+	\KwOut{$distances$ : Dictionnaire contenant les distances entre le joueur et les cases vides}
+	$distances \gets \{\}$\;
+	$queue \gets \{\}$\;
+	\ForEach{$position\_vide \in positions\_vides$}{
+		$distances[position\_vide] \gets \infty$\;
+	}
+	$distances[initial\_position] \gets 0$\;
+	$queue \gets queue \cup \{initial\_position\}$\;
+	\While{$queue \neq \{\}$}{
+		$position \gets queue[0]$ \;
+		$queue \gets queue \setminus \{position\}$\;
+		\ForEach{$adjacent \in get\_adjacents(position)$}{
+			\If{$distances[adjacent] > distances[position] + 1$}{
+				$distances[adjacent] \gets distances[position] + 1$\;
+				$queue \gets queue \cup \{adjacent\}$\;
+			}
+		}
+	}
+	\Return $distances$\;
+\end{algorithm}
+
+Après avoir calculé les distances entre chaque joueur et les cases vides à l'aide de l'algorithm \ref{algo:distance}, 
+nous utilisons ces informations pour déterminer les zones d'influence de chaque joueur en ajoutant les cases vides les plus 
+proches de lui, et nous obtenons la taille de ces zones d'influence en utilisant la méthode décrite dans l'algorithme \ref{algo:voronoï}.\\
+
+\begin{algorithm}[H]
+	\caption{Détermination de la zone d'influence d'un joueur}
+	\label{algo:voronoï}
+	\DontPrintSemicolon
+	\SetKwComment{Comment}{/* }{ */}
+	\KwIn{$state$ : Etat courant du jeu}
+	\KwOut{$zones\_influence$ : Dictionnaire contenant la taille de la zone d'influence de chaque joueur}
+	$zones\_influence \gets \{\}$\;
+	$distances \gets \{\}$\;
+	\ForEach{$player \in state.players$}{
+		$zones\_influence[player] \gets 0$\;
+		$distances[player] \gets distance(player.position, state.vide\_positions)$\;
+	}
+	\ForEach{$position\_vide \in state.vide\_positions$}{
+		$min\_distance \gets \infty$\;
+		$min\_player \gets None$\;
+		\ForEach{$player \in state.players$}{
+			\If{$distances[player][position\_vide] < min\_distance$}{
+				$min\_distance \gets distances[player][position\_vide]$ \;
+				$min\_player \gets player$\;
+			}
+			\ElseIf{$distances[player][position\_vide] == min\_distance$}{
+				$min\_player \gets None$\;
+			}
+		}
+		\If{$min\_player \neq None$}{
+			$zones\_influence[min\_player] \gets zones\_influence[min\_player] + 1$\;
+		}
+	}
+	\Return $zones\_influence$\;
+\end{algorithm}
+
+\tocless\subsubsection{Complexité}
+Étant donné que l'algorithm \textbf{Voronoï}~\ref{algo:voronoï} est basé sur l'utilisation de l'algorithme de \textbf{distance}~\ref{algo:distance}, 
+il existe un lien direct entre la complexité de ces deux algorithmes. \\
+
+En effet, l'algorithme de \textbf{distance}~\ref{algo:distance} est basé sur l'algorithme de \textbf{Dijkstra} qui est un algorithme ayant une complexité
+de l'ordre de $\mathcal{O}{(|A| + |S|log|S|)}$ où $A$ est l'ensemble des arêtes \footnote{Arête est une liaison entre deux cases.} de la grille et 
+$S$ est l'ensemble des cases vide de la grille. Vu que l'on itère $J$ fois sur l'algorithme de \textbf{distance}~\ref{algo:distance} où $J$ est le nombre de joueurs,
+la complexité de la première partie de l'algorithme \textbf{Voronoï}~\ref{algo:voronoï}~(ligne 3-6) est de l'ordre de $\mathcal{O}{(J(|A| + |S|log|S|))}$. La deuxième partie de l'algorithme
+\textbf{Voronoï}~\ref{algo:voronoï}~(ligne 7-15) est basée sur une double itération entre les cases vides et les joueurs, la complexité de cette partie est donc de l'ordre de
+$\mathcal{O}{(|S|J)}$. \\
+
+La complexité totale de l'algorithme \textbf{Voronoï}~\ref{algo:voronoï} est donc de l'ordre de $\mathcal{O}{(J(|A| + |S|log|S|) + |S|J)}$.\\
+
+Toutefois, en fonction de l'état de la grille, on distingue deux cas où l'on peut majoré beaucoup plus efficacement la complexité de l'algorithme \textbf{Voronoï}~\ref{algo:voronoï}:
+\begin{itemize}
+	\item $|S| \gg |A|$ : Dans ce cas, on peut majorer la complexité de l'algorithme \textbf{Voronoï}~\ref{algo:voronoï} en $\mathcal{O}{(J|S|log|S|)}$.
+	\item $|S| \ll |A|$ : Dans ce cas, on peut majorer la complexité de l'algorithme \textbf{Voronoï}~\ref{algo:voronoï} en $\mathcal{O}{(J|A|)}$.
+\end{itemize}
+C'est deux(2) cas sont ceux qui sont le plus souvent rencontrés dans le jeu de \textbf{Tron}.\\
+
+\subsection{Checker}
+Compte tenu de la structure du jeu qui se joue sur une grille, nous pouvons considérer cette grille comme un échiquier, où les cases sont alternativement 
+blanches et noires. En conséquence, un joueur ne peut se déplacer que d'une case blanche à une case noire ou vice versa. Ainsi, en utilisant l'algorithme 
+\textbf{Voronoï}~\ref{algo:voronoï}, nous pouvons éliminer les cases blanches et noires excédentaires qui se trouvent dans la zone d'influence d'un joueur. 
+Cela nous permet d'obtenir une limite supérieure plus précise de la zone d'influence d'un joueur.
+
+\tocless\subsubsection{Implémentation}
+L'algorithme \textbf{Checker}~\ref{algo:checker} est découle du développement réalisé sur celui de voronoï, une différence notable est que dans le case 
+du \textbf{Checker}, nous comptons le nombre de cases blanches et noires dans la zone d'influence d'un joueur, ce qui permet d'en réduire le surplus.\\
+
+\begin{algorithm}[H]
+	\caption{Détermination de la zone d'influence d'un joueur}
+	\label{algo:checker}
+	\DontPrintSemicolon
+	\SetKwComment{Comment}{/* }{ */}
+	\KwIn{$state$ : Etat courant du jeu}
+	\KwOut{$zones\_influence$ : Dictionnaire contenant la taille de la zone d'influence de chaque joueur}
+	$zones\_influence \gets \{\}$\;
+	$distances \gets \{\}$\;
+	$count_{white} \gets 0$\;
+	$count_{black} \gets 0$\;
+	\For{$player \in state.players$}{
+		$distances[player] \gets distance(state, player)$\;
+		$zones\_influence[player] \gets 0$\;
+		$count_{white}[player] \gets 0$\;
+		$count_{black}[player] \gets 0$\;
+	}
+	\ForEach{$position\_vide \in state.vide\_positions$}{
+		$min\_player \gets None$\;
+		$min\_distance \gets \infty$\;
+		\For{$player \in state.players$}{
+			\If{$distances[player][position\_vide] < min\_distance$}{
+				$min\_player \gets player$\;
+				$min\_distance \gets distances[player][position\_vide]$ \Comment{On récupère le joueur le plus proche de la case vide}
+			}
+			\ElseIf{$distances[player][position\_vide] == min\_distance$}{
+				$min\_player \gets None$\;
+				$min\_distance \gets \infty$\;
+			}
+		}
+
+		\If{$min\_player != None$}{
+			$zones\_influence[min\_player] \gets zones\_influence[min\_player] + 1$\;
+			\If{$position\_vide.color == 'white'$}{
+				$count_{white}[min\_player] \gets count_{white}[min\_player] + 1$\;
+			}
+			\Else{
+				$count_{black}[min\_player] \gets count_{black}[min\_player] + 1$\;
+			}
+			$zones\_influence[min\_player] \gets zones\_influence[min\_player] + 1$\;
+		}
+	}
+	\For{$player \in state.players$}{
+		$surplus \gets |count_{white}[player] - count_{black}[player]|$\;
+		$zones\_influence[player] \gets zones\_influence[player] - surplus$\;
+	}
+	\Return $zones\_influence$\;
+\end{algorithm}
+
+\tocless\subsubsection{Complexité}
+La complexité dans le pire des cas de l'algorithme \textbf{Checker}~\ref{algo:checker} est du même ordre que celle de l'algorithme \textbf{Voronoï}~\ref{algo:voronoï},
+c'est à dire $\mathcal{O}{(J(|A| + |S|log|S|))}$. En effet, l'algorithme \textbf{Checker}~\ref{algo:checker} est une extension de l'algorithme \textbf{Voronoï}~\ref{algo:voronoï}. Cette 
+extension permet de trouver une limite supérieure plus précise de la zone d'influence d'un joueur.\\
+
+

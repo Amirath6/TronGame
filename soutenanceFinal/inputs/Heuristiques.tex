@@ -1,0 +1,136 @@
+\begin{frame}{Heuristiques}
+    \centering
+    \Large \textbf{Comment choisir le meilleur coup ?}
+\end{frame}
+
+\begin{frame}{Heuristiques}
+    \begin{block}{Définition}
+        \begin{itemize}
+            \item Une heuristique est une fonction qui permet de déterminer la valeur d'un état du jeu
+            \item Elle est utilisée pour choisir le meilleur coup à jouer
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+% On liste les heuristiques utilisées
+\subsection*{Présentation des Heuristiques}
+    % Présentation des heuristiques
+    \begin{frame}{Présentation des heuristiques}
+        \begin{block}{On a utilisé les heuristiques suivantes :}
+            \begin{itemize}
+                \item \textbf{OpenSpace}
+                \item \textbf{GSALAP}
+                \item \textbf{Voronoi}
+                \item \textbf{Checker}
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    % On présente l'heuristique OpenSpace
+    \begin{frame}{OpenSpace}
+        \begin{block}{Description}
+            \begin{itemize}
+                \item On compte le nombre de cases vides autour de la case où on veut jouer
+                \item On choisit le coup qui maximise ce nombre
+            \end{itemize}
+            % On rajoutera une image
+            \begin{figure}
+                \begin{center}
+                    \includegraphics[scale=0.25]{Images/OpenSpace.png}
+                    \caption{OpenSpace}
+                \end{center}
+            \end{figure}
+        \end{block}
+    \end{frame}
+
+    % On présente l'heuristique GSALAP
+    \begin{frame}{GSALAP}
+        \begin{block}{GSALAP ou \textit{Go AS Long As Possible}}
+            \begin{itemize}
+                \item On compte le nombre de pions qu'on peut jouer avant de bloquer
+                \item On choisir le coup qui maximise ce nombre
+            \end{itemize}
+        \end{block}
+        \begin{figure}
+            \begin{center}
+                \includegraphics[scale=0.25]{Images/GSLASP.png}
+                \caption{GSALAP}
+            \end{center}
+        \end{figure}
+    \end{frame}
+
+    % On présente l'heuristique Voronoi
+    \begin{frame}{Voronoi}
+        \begin{block}{Description}
+            \begin{itemize}
+                \item On détermine la distance entre chaque case vide et la tête de chaque joueur
+                \item On choisit le coup qui maximise la distance entre la tête du joueur et la case vide
+            \end{itemize}
+            % On rajoutera une image
+            \begin{figure}
+                \begin{center}
+                    \includegraphics[scale=0.25]{Images/Voronoi.png}
+                    \caption{Voronoi}
+                \end{center}
+            \end{figure}
+        \end{block}
+    \end{frame}
+
+    % On présente l'heuristique Checker
+    \begin{frame}{Checker}
+        \begin{block}{Description}
+            \begin{itemize}
+                \item On compte le nombre de cases vides autour de la case où on veut jouer
+                \item On choisit le coup qui maximise ce nombre
+            \end{itemize}
+            % On rajoutera une image
+        \end{block}
+    \end{frame}
+
+    % Complexité des heuristiques
+    \subsection*{Complexité des heuristiques}
+    \begin{frame}{Complexité des heuristiques}
+        \begin{block}{Complexité en temps des heuristiques :}
+            \begin{table}[]
+                \begin{tabular}{|l|l|}
+                \hline
+                                            & \textbf{Complexité en temps}               \\ \hline
+                \textit{\textbf{OpenSpace}} & $\mathcal{O}(J)$                           \\ \hline
+                \textit{\textbf{GSLASP}}    & $\mathcal{O}(J \times N)$                  \\ \hline
+                \textit{\textbf{Voronoï}}   & $\mathcal{O}{(J(|A| + |S|log|S|) + |S|J)}$ \\ \hline
+                \textit{\textbf{Checker}}   & $\mathcal{O}{(J(|A| + |S|log|S|) + |S|J)}$ \\ \hline
+                \end{tabular}
+                \end{table}
+        \end{block}
+    \end{frame}
+
+    \subsection*{Comparaison des heuristiques}
+    \begin{frame}{Performances des heuristiques avec \textbf{\texttt{Max$^n$}}}
+        % On met les 2 figures cotes à cotes
+        \begin{columns}
+            \begin{column}{0.5\textwidth}
+                \includegraphics[scale=0.5]{Images/ProporitionVictoireHeuristiqueWithMaxN.png}
+                \captionof{figure}{Victoire par heuristique}
+            \end{column}
+            \begin{column}{0.5\textwidth}
+                \includegraphics[scale=0.5]{Images/ProportionDureePartieGagnanteWithMaxN.png}
+                \captionof{figure}{Durée des parties gagnantes}
+            \end{column}
+        \end{columns}
+    \end{frame}
+
+    \begin{frame}{Performances des heuristiques avec \textbf{\texttt{Max$^n$}}}
+        \begin{columns}
+            \begin{column}{0.5\textwidth}
+                \includegraphics[scale=0.5]{Images/ProporitionVictoireHeuristiqueWithParanoid.png}
+                \captionof{figure}{Victoire par heuristique}
+            \end{column}
+            \begin{column}{0.5\textwidth}
+                \includegraphics[scale=0.5]{Images/ProportionDureePartieGagnanteWithParanoid.png}
+                \captionof{figure}{Durée des parties gagnantes}
+            \end{column}
+        \end{columns}
+    \end{frame}
+
+
+

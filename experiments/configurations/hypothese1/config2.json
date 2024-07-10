@@ -1,0 +1,23 @@
+{
+    "boardSize": 15,
+    "players": [
+      {
+        "algorithm": "Maxn",
+        "strategy": "Checker",
+        "depth": 2,
+        "pruning": true
+      },
+      {
+        "algorithm": "Maxn",
+        "strategy": "Checker",
+        "depth": 1,
+        "pruning": true
+      },
+      {
+        "algorithm": "Paranoid",
+        "strategy": "Checker",
+        "depth": 1,
+        "pruning": true
+      }
+    ]
+  }
